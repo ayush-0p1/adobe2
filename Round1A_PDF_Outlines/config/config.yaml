@@ -1,0 +1,20 @@
+score:
+  size_weight: 0.32
+  bold_weight: 0.15
+  shortline_weight: 0.18
+  number_weight: 0.18
+  indent_weight: 0.07
+  caps_penalty: 0.06
+  punct_penalty: 0.04
+
+thresholds:
+  min_score: 0.52
+  page_prominence_z: 0.6
+  shortline_max_chars: 90
+  max_h_level: 3
+
+postprocess:
+  dedup_fuzz_ratio: 92
+  merge_line_gap: 3
+  keep_top_title_chars: 180
+  title_min_score: 0.65

@@ -1,0 +1,18 @@
+personas:
+  - id: "phd_researcher"
+    role: "PhD Researcher in Computational Biology"
+    expertise: ["graph neural networks", "drug discovery", "benchmarks", "datasets"]
+    job: "Prepare a comprehensive literature review focusing on methodologies, datasets, and performance benchmarks."
+    keywords: ["GNN", "molecular", "binding", "AUC", "ROC", "benchmark", "dataset"]
+
+  - id: "investment_analyst"
+    role: "Investment Analyst"
+    expertise: ["financial statements", "revenue", "R&D", "market share"]
+    job: "Analyze revenue trends, R&D investments, and market positioning strategies."
+    keywords: ["revenue", "operating income", "R&D", "capex", "guidance", "market"]
+
+  - id: "chem_student"
+    role: "Undergraduate Chemistry Student"
+    expertise: ["reaction kinetics", "mechanisms", "rate law"]
+    job: "Identify key concepts and mechanisms for exam preparation on reaction kinetics."
+    keywords: ["rate constant", "Arrhenius", "activation energy", "order", "mechanism"]

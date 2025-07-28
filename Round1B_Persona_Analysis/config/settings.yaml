@@ -1,0 +1,18 @@
+chunk:
+  max_chars: 1200
+  stride_chars: 300
+  min_chars: 200
+
+rank:
+  top_k: 30
+  section_top_k: 15
+  subsection_top_k: 40
+  keyword_boost: 0.12
+  heading_boost: 0.08
+  page_decay: 0.003
+
+similarity:
+  min_sim: 0.35
+
+summary:
+  max_sentences: 3
