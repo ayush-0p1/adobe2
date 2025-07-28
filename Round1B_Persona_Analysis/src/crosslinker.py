@@ -1,9 +1,14 @@
 from __future__ import annotations
-from typing import List, Dict, Any
+
+from typing import Any, Dict, List
+
 import numpy as np
 import networkx as nx
 
-def build_graph(vecs: np.ndarray, chunks: List[Dict[str, Any]], min_sim: float):
+
+def build_graph(
+    vecs: np.ndarray, chunks: List[Dict[str, Any]], min_sim: float
+) -> nx.Graph:
     G = nx.Graph()
     for i, ch in enumerate(chunks):
         G.add_node(i, doc=ch["doc"], page=ch["page"])

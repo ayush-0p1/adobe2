@@ -1,7 +1,13 @@
 from __future__ import annotations
-from typing import List, Dict, Any
 
-def top_sections(chunks: List[Dict[str, Any]], ranked: List[tuple[int, float]], section_top_k: int) -> List[Dict[str, Any]]:
+from typing import Any, Dict, List
+
+
+def top_sections(
+    chunks: List[Dict[str, Any]],
+    ranked: List[tuple[int, float]],
+    section_top_k: int,
+) -> List[Dict[str, Any]]:
     page_best: Dict[tuple[str, int], tuple[float, Dict[str, Any]]] = {}
     for idx, score in ranked:
         ch = chunks[idx]

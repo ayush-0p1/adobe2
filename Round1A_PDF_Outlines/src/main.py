@@ -1,8 +1,14 @@
 from __future__ import annotations
-import argparse, os, json
+
+import argparse
+import json
+import os
+
 from .outline_extractor import extract_outline
 from .logging_utils import get_logger
+
 log = get_logger("main")
+
 
 def process_dir(input_dir: str, output_dir: str, cfg: str):
     os.makedirs(output_dir, exist_ok=True)
@@ -28,3 +34,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

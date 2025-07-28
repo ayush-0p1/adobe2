@@ -13,3 +13,10 @@ mkdir -p input output
 docker run --rm   -v $(pwd)/input:/app/input   -v $(pwd)/output:/app/output   --network none persona:local
 # outputs /app/output/results.json
 ```
+
+## Tests
+```bash
+pip install -r requirements.txt -r ../Round1A_PDF_Outlines/requirements.txt
+PYTHONPATH=Round1A_PDF_Outlines pytest Round1A_PDF_Outlines/tests -q
+PYTHONPATH=Round1B_Persona_Analysis pytest Round1B_Persona_Analysis/tests -q
+```

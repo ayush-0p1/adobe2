@@ -1,7 +1,10 @@
 from __future__ import annotations
-import fitz
+
 from dataclasses import dataclass
 from typing import List
+
+import fitz
+
 
 @dataclass
 class Span:
@@ -16,10 +19,13 @@ class Span:
     y1: float
     line_len: int
 
+
 def extract_spans(pdf_path: str, max_pages: int | None = None) -> List[Span]:
     doc = fitz.open(pdf_path)
     spans: List[Span] = []
-    pages = range(len(doc)) if max_pages is None else range(min(len(doc), max_pages))
+    pages = (
+        range(len(doc)) if max_pages is None else range(min(len(doc), max_pages))
+    )
     for pno in pages:
         page = doc[pno]
         blocks = page.get_text("dict")["blocks"]
@@ -36,7 +42,21 @@ def extract_spans(pdf_path: str, max_pages: int | None = None) -> List[Span]:
                     font = s.get("font", "")
                     bold = "Bold" in font or "Black" in font or "Heavy" in font
                     size = float(s.get("size", 0.0))
-                    x0, y0, x1, y1 = s.get("bbox", [0,0,0,0])
-                    spans.append(Span(text, size, font, bold, pno+1, x0, x1, y0, y1, line_len))
+                    x0, y0, x1, y1 = s.get("bbox", [0, 0, 0, 0])
+                    spans.append(
+                        Span(
+                            text,
+                            size,
+                            font,
+                            bold,
+                            pno + 1,
+                            x0,
+                            x1,
+                            y0,
+                            y1,
+                            line_len,
+                        )
+                    )
     doc.close()
     return spans
+

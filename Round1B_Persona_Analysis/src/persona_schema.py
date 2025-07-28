@@ -1,7 +1,10 @@
 from __future__ import annotations
+
 from dataclasses import dataclass
 from typing import List
+
 import yaml
+
 
 @dataclass
 class Persona:
@@ -10,10 +13,13 @@ class Persona:
     expertise: List[str]
     job: str
     keywords: List[str]
+
     def prompt(self) -> str:
         kws = ", ".join(self.keywords)
         exp = ", ".join(self.expertise)
-        return f"Role: {self.role}. Expertise: {exp}. Job: {self.job}. Keywords: {kws}."
+        return (
+            f"Role: {self.role}. Expertise: {exp}. Job: {self.job}. Keywords: {kws}."
+        )
 
 def load_personas(path: str) -> List[Persona]:
     data = yaml.safe_load(open(path, "r", encoding="utf-8"))
@@ -24,3 +30,4 @@ def load_personas(path: str) -> List[Persona]:
             job=p["job"], keywords=p.get("keywords", [])
         ))
     return res
+

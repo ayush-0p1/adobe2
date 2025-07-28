@@ -1,11 +1,15 @@
 from __future__ import annotations
-from typing import List, Dict
 
-def chunk_pages(pages: List[str], max_chars: int, stride_chars: int, min_chars: int):
+from typing import List
+
+def chunk_pages(
+    pages: List[str], max_chars: int, stride_chars: int, min_chars: int
+):
     chunks = []
     for idx, page in enumerate(pages, start=1):
         text = page.strip()
-        if not text: continue
+        if not text:
+            continue
         i, n = 0, len(text)
         while i < n:
             j = min(n, i + max_chars)

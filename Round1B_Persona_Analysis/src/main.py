@@ -1,6 +1,11 @@
 from __future__ import annotations
-import argparse, os, time, yaml
-from typing import List, Dict, Any
+
+import argparse
+import os
+import time
+import yaml
+
+from typing import Any, Dict, List
 from .logging_utils import get_logger
 from .ingest import ingest_collection
 from .chunking import chunk_pages
@@ -21,7 +26,12 @@ def build_chunks(docs: List[Dict[str, Any]], cfg: Dict[str, Any]):
         doc_path = d["path"]
         pages = d["pages"]
         headings = d["headings"]
-        cks = chunk_pages(pages, cfg["chunk"]["max_chars"], cfg["chunk"]["stride_chars"], cfg["chunk"]["min_chars"])
+        cks = chunk_pages(
+            pages,
+            cfg["chunk"]["max_chars"],
+            cfg["chunk"]["stride_chars"],
+            cfg["chunk"]["min_chars"],
+        )
         for c in cks:
             heads = headings.get(c["page"], [])
             c["heading"] = heads[0] if heads else ""
@@ -42,12 +52,23 @@ def process(input_dir: str, output_path: str, personas_path: str, settings_path:
     results = []
     for p in personas:
         p_vec = embed.encode([p.prompt()])[0]
-        ranked = rank_chunks(p_vec, chunk_vecs, chunks, cfg, headings={}, keywords=p.keywords)
-        sections = top_sections(chunks, ranked, cfg["rank"]["section_top_k"])
+        ranked = rank_chunks(
+            p_vec,
+            chunk_vecs,
+            chunks,
+            cfg,
+            headings={},
+            keywords=p.keywords,
+        )
+        sections = top_sections(
+            chunks, ranked, cfg["rank"]["section_top_k"]
+        )
         subsections = []
         for rank_idx, (idx, score) in enumerate(ranked, start=1):
             ch = chunks[idx]
-            refined = top_sentences(ch["text"], cfg["summary"]["max_sentences"])
+            refined = top_sentences(
+                ch["text"], cfg["summary"]["max_sentences"]
+            )
             subsections.append({
                 "document": ch["doc"],
                 "page": ch["page"],
@@ -73,16 +94,4 @@ def process(input_dir: str, output_path: str, personas_path: str, settings_path:
     final = {"metadata": meta, "results": results}
     save_json(final, output_path)
     log.info(f"Saved results to {output_path}")
-
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--input_dir", required=True)
-    ap.add_argument("--output", required=True)
-    ap.add_argument("--personas", required=True)
-    ap.add_argument("--settings", required=True)
-    ap.add_argument("--model_dir", required=True)
-    args = ap.parse_args()
-    process(args.input_dir, args.output, args.personas, args.settings, args.model_dir)
-
-if __name__ == "__main__":
-    main()
+    

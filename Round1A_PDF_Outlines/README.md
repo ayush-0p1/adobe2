@@ -36,5 +36,7 @@ docker run --rm   -v $(pwd)/input:/app/input   -v $(pwd)/output:/app/output   --
 
 ## Tests
 ```bash
-pytest -q
+pip install -r requirements.txt -r ../Round1B_Persona_Analysis/requirements.txt
+PYTHONPATH=Round1A_PDF_Outlines pytest Round1A_PDF_Outlines/tests -q
+PYTHONPATH=Round1B_Persona_Analysis pytest Round1B_Persona_Analysis/tests -q
 ```
